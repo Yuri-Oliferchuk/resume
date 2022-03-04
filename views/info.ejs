@@ -20,17 +20,32 @@
         </tr>
         <tr id="summary">
             <td id="left">
-                <img src="../pic/photo.jpg">
+                <img id="photo" src="../pic/photo.jpg">
                 <div id="contacts">
-                    <h1>Hello</h1>
+                    
                 </div>
                 
             </td>
             <td id="summary-text">
-                <h1>World</h1>
+                <h1 id="name-text"></h1>
+
             </td>
         </tr>
     </table>
-    
+    <script>
+        let infoObj = {};
+        let request = new XMLHttpRequest();
+        request.open('GET', '../api/<%= lang %>/admin/info');
+        request.responseType = 'json';
+        request.send(); 
+
+        request.onload = async() => {
+            infoObj = await request.response;
+            document.getElementById('name-text').textContent = infoObj.name;
+            // document.getElementById('photo_link').value = infoObj.photo_link;
+            document.getElementById('name-text').insertAdjacentHTML("afterend", infoObj.text);
+            document.getElementById('photo').insertAdjacentHTML("afterend", infoObj.contacts);
+        }
+      </script>
 </body>
 </html>

@@ -19,14 +19,39 @@
             </th>
         </tr>
         <tr>
-            <td>
-                <h1>Hello</h1>               
-            </td>
-            <td>
-                <h1>World</h1>
-            </td>
+        <td><div>
+            <form action="../api/<%= lang %>/admin/info" method="post">
+                <label for="name">Name:</label>
+                <input id="name" name="name" type="name" required autofocus>
+                <label for="photo_link">Photo link:</label>
+                <input id="photo_link" name="photo_link" type="text" required>
+                <label for="text">Text:</label>
+                <textarea id="text" name="text" rows="25" cols="40"></textarea>
+                <label for="contacts">Contacts:</label>
+                <textarea id="contacts" name="contacts" rows="25" cols="40"></textarea>
+                <br>
+            <button class="button" type="submit">Change data</button>
+            <br>
+            <br>
+            </form>
+        </div></td>      
         </tr>
     </table>
     
+    <script>
+        let infoObj = {};
+        let request = new XMLHttpRequest();
+        request.open('GET', '../api/<%= lang %>/admin/info');
+        request.responseType = 'json';
+        request.send();
+
+        request.onload = async() => {
+            infoObj = await request.response;
+            document.getElementById('name').value = infoObj.name;
+            document.getElementById('photo_link').value = infoObj.photo_link;
+            document.getElementById('text').value = infoObj.text;
+            document.getElementById('contacts').value = infoObj.contacts;
+        }
+      </script>
 </body>
 </html>

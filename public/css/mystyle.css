@@ -3,21 +3,25 @@ html{
     justify-content: center;
     align-content: center;
     align-items: center;
-    height: 100%;
+    height: auto;
     margin: 0;
     padding: 0;
     background:#eeeeee;
 }
 
 body {
-    height: 100%;
+    margin: 0;
     border: 1px solid rgb(85, 85, 85);
 }
 
 h1, h3, h4 {
     text-align: center;
-    margin: 2px;
-    
+    margin: 5px;  
+}
+
+h5 {
+    margin: 0;
+    padding: 0;
 }
 
 img {
@@ -45,6 +49,7 @@ a {
 }
 
 #top-menu {
+    vertical-align: top;
     background-color: gray;
     height: 50px;
 }
@@ -59,6 +64,7 @@ a {
 
 #login, #home {
     display: block;
+    margin-top: 13px;
     margin-right: 10px;
     text-align: right;
 }
@@ -72,7 +78,17 @@ a {
 #contacts {
     display: flex;
     margin-top: 10px;
-    justify-content: center;
-    align-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
+div {
+    margin-left: 120px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
