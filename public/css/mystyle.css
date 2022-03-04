@@ -1,0 +1,78 @@
+html{
+    display: flex; 
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background:#eeeeee;
+}
+
+body {
+    height: 100%;
+    border: 1px solid rgb(85, 85, 85);
+}
+
+h1, h3, h4 {
+    text-align: center;
+    margin: 2px;
+    
+}
+
+img {
+    width: 20em;
+}
+
+table {
+    width: 60em;
+    height: 100%;
+    border-spacing: 0;
+}
+
+tr, th, td {
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+a {
+    color: white;
+}
+
+#top-menu {
+    background-color: gray;
+    height: 50px;
+}
+
+#lang {
+    margin-left: 10px;
+    margin-top: 13px;
+    display: inline-flex;
+    align-items: center;
+    text-align: left;
+}
+
+#login, #home {
+    display: block;
+    margin-right: 10px;
+    text-align: right;
+}
+
+#left {
+    vertical-align: top;
+    background-color: lightgray;
+    width: 20em;
+}
+
+#contacts {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    align-content: center;
+}
+

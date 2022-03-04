@@ -1,0 +1,59 @@
+html{
+    display: flex; 
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: 0;
+    height: 100%;
+    padding: 0;
+    background:#eeeeee;
+}
+
+a {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+menu {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h3, h4 {
+    text-align: center;
+    margin: 2px;
+    
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+p {
+    margin: 0;
+
+}
+
+p#error {
+    display: flex; 
+    justify-content: center;
+    margin: 0;
+    color: red;
+}
+
+.button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+body {
+    padding: 5px;
+    border: 1px solid rgb(85, 85, 85);
+    border-radius: 5px;
+}
