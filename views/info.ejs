@@ -14,8 +14,13 @@
                 <p id="sep">&nbsp/&nbsp</p>
                 <a class="menu" href="./ua">UA</a>
             </th>
-            <th>
+            <th align="right">
+                <% if(isLogin===true) {%>
+                <a class="menu" id="login" href="./api/<%= lang %>/admin">Admin</a>
+                <a class="menu" id="login" href="./api/logout">Logout</a>
+                <%} else {%>
                 <a class="menu" id="login" href="./api/<%= lang %>/admin">Login</a>
+                <%}%>
             </th>
         </tr>
         <tr id="summary">
@@ -43,7 +48,6 @@
 
         request.onload = async() => {
             infoObj = await request.response;
-            console.log(infoObj.profession)
             document.getElementById('name-text').textContent = infoObj.name;
             document.getElementById('profession-text').textContent = infoObj.profession;
             document.getElementById('separator').insertAdjacentHTML("afterend", infoObj.text);

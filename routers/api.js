@@ -1,5 +1,8 @@
 import express from 'express';
+import passport from 'passport';                            //add pasport
+import bcrypt from 'bcrypt';              
 import { pool } from '../configs/db-config.js';
+import { redirectLogin, redirectHome } from '../middelware/redirect.js';
 
 const api = express.Router();
 
@@ -7,7 +10,7 @@ api.get('/', (req, res) => {
     res.send('Hello from /api');
 })
 
-api.get('/:lang/admin', (req, res) => {
+api.get('/:lang/admin', redirectLogin, (req, res) => {
     res.redirect('../../'+req.params.lang+'/admin')
 })
 
@@ -28,5 +31,34 @@ api.post('/:lang/admin/info', async(req, res) => {
     await pool.query(sql, [name, profession, text, contact, lang]);
     res.status(201).redirect('../../'+lang+'/admin');
 })
+
+api.post('/login', redirectHome, 
+          passport.authenticate('local', {
+              failureRedirect: '/api/login',
+              successRedirect: '/',
+              failureFlash: true
+            })
+);
+
+api.post('/register', redirectHome, async(req, res) => {
+    const {username, email, password} = req.body;
+
+    if (email&&username&&password) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+    
+        const sql = 'INSERT INTO users_auth (username, password, email, salt, superuser) VALUES ($1, $2, $3, $4, $5);'
+        await pool.query(sql, [username, hashedPassword, email, salt, false])
+        
+        req.flash('error', 'Registration successful');
+        return res.redirect('/api/login')
+    }
+    return res.redirect('/api/register'); // if any errors
+})
+
+api.get('/logout', redirectLogin, (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
 
 export {api};

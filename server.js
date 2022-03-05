@@ -1,7 +1,11 @@
 import 'dotenv/config';
+import './configs/passport.js'
 import express from 'express';
 import path from 'path';
-import bodyParser from 'body-parser';
+import bodyParser from 'body-parser';                        
+import session from 'express-session';
+import passport from 'passport';
+import flash from 'express-flash';
 import { fileURLToPath } from 'url';
 import { api } from './routers/api.js';
 import { web } from './routers/interface.js'
@@ -18,6 +22,25 @@ app.use(express.static(path.join(__dirname, '/public')));
 // add body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// session config
+app.use(flash())
+app.use(session({
+    name: "sid",
+    resave: false,
+    saveUninitialized: false,
+    secret: "XXXX",
+    cookie: {
+      maxAge: 1000*60*60*2,
+      sameSite: true,
+      secure: false,
+    }
+}))
+  
+// Passport Config
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport.authenticate('session'));
 
 app.use('/api', api);
 app.use('/', web)

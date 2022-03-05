@@ -1,4 +1,5 @@
 import express from 'express';
+import { redirectLogin, redirectHome } from '../middelware/redirect.js';
 
 const web = express.Router();
 
@@ -7,11 +8,24 @@ web.get('/', (req, res) => {
 })
 
 web.get('/:lang', (req, res) => {
-    res.render('info', {lang: req.params.lang});
+    if(req.params.lang!=='ua'&&req.params.lang!=='eng') {
+        res.status(404).send();
+    } else {
+        res.render('info', {lang: req.params.lang, isLogin: req.isAuthenticated()});
+    }
+    
 })
 
-web.get('/:lang/admin', (req, res) => {
+web.get('/:lang/admin', redirectLogin, (req, res) => {
     res.render('admin', {lang: req.params.lang})
+})
+
+web.get('/api/login', redirectHome, (req, res) => {
+    res.render('login')
+})
+
+web.get('/api/register', redirectHome, (req,res) => {
+    res.render('register')
 })
 
 export {web};

@@ -71,10 +71,9 @@ a.menu {
 }
 
 #login, #home {
-    display: block;
+    display: inline-block;
     margin-top: 15px;
     margin-right: 10px;
-    text-align: right;
 }
 
 #left {

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <title>Sign  In</title>
+</head>
+<body>
+            <h1>Sign in</h1>
+            <% if (messages.error) {%>
+                <p id="error"><%= messages.error%><p>
+            <% } else {%>
+                <br>        
+            <% } %>
+            <form action="./login" method="post">
+                    <label for="username">User Name:</label>
+                    <input id="username" name="username" type="username" required autofocus>
+                    <label for="password">Password:</label>
+                    <input id="password" name="password" type="password" required>
+                    <br>
+                <button class="button" type="submit">Sign in</button>
+                <a href='/api/register'>Register</a>
+            </form>
+</body>
+</html>
