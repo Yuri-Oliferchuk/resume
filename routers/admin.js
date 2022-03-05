@@ -8,4 +8,4 @@ admin.get('/', (req, res) => {
 })
 
 
-export {api};
+export {admin};

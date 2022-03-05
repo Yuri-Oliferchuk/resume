@@ -13,12 +13,12 @@ VALUES ('admin', '$2b$10$Yr2SlyMCwuhrwivZY0EPhO9/xWd7/OzPj1V2GzsI4mz5J.7wPua3e',
 
 CREATE TABLE info (
     name VARCHAR(255) NOT NULL,
-    photo_link VARCHAR(255) NOT NULL,
+    profession VARCHAR(255) NOT NULL,
     text VARCHAR NOT NULL,
     contacts VARCHAR NOT NULL,
     lang VARCHAR(5)
 );
 
-INSERT INTO info (name, photo_link, text, contacts, lang)
-VALUES ('Oliferchuk Yuriy', './../photo.jpg', '<h1>Hello world!!!</h1>', 'Contacts:', 'eng'),
-       ('Оліферчук Юрій Володимирович', './../photo.jpg', '<h1>Привіт світ!!!</h1>', 'Контакти:', 'ua');
+INSERT INTO info (name, profession, text, contacts, lang)
+VALUES ('Oliferchuk Yuriy', 'Node JS Back-End Developer', '<h1>Hello world!!!</h1>', 'Contacts:', 'eng'),
+       ('Оліферчук Юрій Володимирович', 'Розробник Node JS Back-End', '<h1>Привіт світ!!!</h1>', 'Контакти:', 'ua');

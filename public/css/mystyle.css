@@ -14,9 +14,11 @@ body {
     border: 1px solid rgb(85, 85, 85);
 }
 
-h1, h3, h4 {
-    text-align: center;
+h1, h2, h3, h4, h5 {
+    text-align: left;
+    font-family: 'Verdana', Courier, monospace;
     margin: 5px;  
+    margin-left: 43px;
 }
 
 h5 {
@@ -40,15 +42,22 @@ tr, th, td {
     margin: 0;
 }
 
-p {
-    margin: 0;
+a {
+    font-family: 'Verdana', Courier, monospace;
+    /* color: white; */
 }
 
-a {
+a.menu {
     color: white;
 }
 
+#summary-text {
+    display: block;
+}
+
 #top-menu {
+    position: sticky;
+    top: 0;
     vertical-align: top;
     background-color: gray;
     height: 50px;
@@ -56,7 +65,6 @@ a {
 
 #lang {
     margin-left: 10px;
-    margin-top: 13px;
     display: inline-flex;
     align-items: center;
     text-align: left;
@@ -64,7 +72,7 @@ a {
 
 #login, #home {
     display: block;
-    margin-top: 13px;
+    margin-top: 15px;
     margin-right: 10px;
     text-align: right;
 }
@@ -91,4 +99,44 @@ form {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+ul {
+    margin-left: 60px;
+    font-family: 'Verdana', Courier, monospace;
+}
+
+p {
+    margin-left: 45px;
+    margin-right: 40px;
+    font-family: 'Verdana', Courier, monospace;
+}
+
+#sep {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#name-text {
+    font-family: 'Verdana', Courier, monospace;
+    text-align: left;
+    font-weight: bold;
+    font-size: 350%;
+    margin: 40px;
+    margin-right: 80px;
+}
+
+#profession-text {
+    font-family: 'Verdana', Courier, monospace;
+    text-align: left;
+    font-size: 200%;
+    margin: 40px;
+}
+
+#separator {
+    width: 87%;
+    height: 4px;
+    background-color:grey;
+    border: 0 none;
+    margin-bottom:50px;
 }

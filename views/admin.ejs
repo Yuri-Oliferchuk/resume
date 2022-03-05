@@ -10,25 +10,29 @@
     <table>
         <tr id="top-menu">
             <th id="lang">
-                <a href="../eng/admin">EN</a>
-                <p>&nbsp/&nbsp</p>
-                <a href="../ua/admin">UA</a>
+                <a class="menu" href="../eng/admin">EN</a>
+                <p id="sep">&nbsp/&nbsp</p>
+                <a class="menu" href="../ua/admin">UA</a>
             </th>
             <th>
-                <a id="home" href="../../">Home</a>
+                <a class="menu" id="home" href="../../<%= lang %>">Home</a>
             </th>
         </tr>
         <tr>
         <td><div>
             <form action="../api/<%= lang %>/admin/info" method="post">
+                <br>
                 <label for="name">Name:</label>
                 <input id="name" name="name" type="name" required autofocus>
-                <label for="photo_link">Photo link:</label>
-                <input id="photo_link" name="photo_link" type="text" required>
+                <br>
+                <label for="profession">Profession:</label>
+                <input id="profession" name="profession" type="text" required>
+                <br>
                 <label for="text">Text:</label>
                 <textarea id="text" name="text" rows="25" cols="40"></textarea>
-                <label for="contacts">Contacts:</label>
-                <textarea id="contacts" name="contacts" rows="25" cols="40"></textarea>
+                <br>
+                <label for="contact">Contacts:</label>
+                <textarea id="contact" name="contact" rows="10" cols="40"></textarea>
                 <br>
             <button class="button" type="submit">Change data</button>
             <br>
@@ -48,9 +52,9 @@
         request.onload = async() => {
             infoObj = await request.response;
             document.getElementById('name').value = infoObj.name;
-            document.getElementById('photo_link').value = infoObj.photo_link;
+            document.getElementById('profession').value = infoObj.profession;
             document.getElementById('text').value = infoObj.text;
-            document.getElementById('contacts').value = infoObj.contacts;
+            document.getElementById('contact').value = infoObj.contacts;
         }
       </script>
 </body>

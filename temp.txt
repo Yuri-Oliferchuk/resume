@@ -1,0 +1,21 @@
+<h3>Контактна інформація:</h3>
+<br>
+<h4>Телефон:</h4>
+<h4>+380504336112</h4>
+<br>
+<h4>Електронна пошта:</h4>
+<h4>dbzero@gmail.com</h4>
+<br>
+<h4>Місце проживання:</h4>
+<h4>м. Калуш 77300</h4>
+
+<h3>Contact information:</h3>
+<br>
+<h4>Phone:</h4>
+<h4>+380504336112</h4>
+<br>
+<h4>Email:</h4>
+<h4>dbzero@gmail.com</h4>
+<br>
+<h4>Location:</h4>
+<h4>77300 Kalush</h4>

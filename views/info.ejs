@@ -10,12 +10,12 @@
     <table>
         <tr id="top-menu">
             <th id="lang">
-                <a href="./eng">EN</a>
-                <p>&nbsp/&nbsp</p>
-                <a href="./ua">UA</a>
+                <a class="menu" href="./eng">EN</a>
+                <p id="sep">&nbsp/&nbsp</p>
+                <a class="menu" href="./ua">UA</a>
             </th>
             <th>
-                <a id="login" href="./api/<%= lang %>/admin">Login</a>
+                <a class="menu" id="login" href="./api/<%= lang %>/admin">Login</a>
             </th>
         </tr>
         <tr id="summary">
@@ -28,6 +28,8 @@
             </td>
             <td id="summary-text">
                 <h1 id="name-text"></h1>
+                <h2 id="profession-text"></h2>
+                <hr id="separator">
 
             </td>
         </tr>
@@ -41,9 +43,10 @@
 
         request.onload = async() => {
             infoObj = await request.response;
+            console.log(infoObj.profession)
             document.getElementById('name-text').textContent = infoObj.name;
-            // document.getElementById('photo_link').value = infoObj.photo_link;
-            document.getElementById('name-text').insertAdjacentHTML("afterend", infoObj.text);
+            document.getElementById('profession-text').textContent = infoObj.profession;
+            document.getElementById('separator').insertAdjacentHTML("afterend", infoObj.text);
             document.getElementById('photo').insertAdjacentHTML("afterend", infoObj.contacts);
         }
       </script>
