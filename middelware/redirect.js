@@ -1,6 +1,6 @@
 //function for redirect if user not loged in
 const redirectLogin = (req, res, next) => {
-    if(!req.user) {
+    if(!req.isAuthenticated()) {
         res.redirect('/api/login');
     } else {
         next();

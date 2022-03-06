@@ -139,3 +139,7 @@ p {
     border: 0 none;
     margin-bottom:50px;
 }
+
+/* #text {
+    pointer-events: none; 
+} */

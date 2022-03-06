@@ -20,7 +20,10 @@
         </tr>
         <tr>
         <td><div>
-            <form action="../api/<%= lang %>/admin/info" method="post">
+            <form name="form" action="../api/<%= lang %>/admin/info" method="post">
+                <% if(!superuser) {%>
+                    <label align="center" color="red">You are not Admin!!!</label>
+                <% } %>
                 <br>
                 <label for="name">Name:</label>
                 <input id="name" name="name" type="name" required autofocus>
@@ -29,12 +32,14 @@
                 <input id="profession" name="profession" type="text" required>
                 <br>
                 <label for="text">Text:</label>
-                <textarea id="text" name="text" rows="25" cols="40"></textarea>
+                <textarea id="text" name="text" rows="25" cols="40" ></textarea>
                 <br>
                 <label for="contact">Contacts:</label>
                 <textarea id="contact" name="contact" rows="10" cols="40"></textarea>
                 <br>
-            <button class="button" type="submit">Change data</button>
+                <% if(superuser) {%>
+                    <button class="button" type="submit">Change data</button>
+                <% } %>
             <br>
             <br>
             </form>
@@ -56,6 +61,20 @@
             document.getElementById('text').value = infoObj.text;
             document.getElementById('contact').value = infoObj.contacts;
         }
+
+        const superuser = '<%= superuser%>';
+        if(!superuser){
+            document.forms['form']['name'].disabled = true;
+            document.forms['form']['profession'].disabled = true;
+            document.forms['form']['text'].disabled = true;
+            document.forms['form']['contact'].disabled = true;
+        } else {
+            document.forms['form']['name'].disabled = false;
+            document.forms['form']['profession'].disabled = false;
+            document.forms['form']['text'].disabled = false;
+            document.forms['form']['contact'].disabled = false;
+        }
+        
       </script>
 </body>
 </html>

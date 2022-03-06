@@ -8,6 +8,7 @@ web.get('/', (req, res) => {
 })
 
 web.get('/:lang', (req, res) => {
+   
     if(req.params.lang!=='ua'&&req.params.lang!=='eng') {
         res.status(404).send();
     } else {
@@ -17,7 +18,14 @@ web.get('/:lang', (req, res) => {
 })
 
 web.get('/:lang/admin', redirectLogin, (req, res) => {
-    res.render('admin', {lang: req.params.lang})
+    let superuser;
+    try {
+        superuser = (req.user.superuser)?true:'';
+    } catch {
+        superuser = '';
+    }
+
+    res.render('admin', {lang: req.params.lang, superuser: superuser})
 })
 
 web.get('/api/login', redirectHome, (req, res) => {
