@@ -32,8 +32,8 @@ web.get('/api/login', redirectHome, (req, res) => {
     res.render('login')
 })
 
-web.get('/api/register', redirectHome, (req,res) => {
-    res.render('register')
+web.get('/api/signup', redirectHome, (req,res) => {
+    res.render('signup')
 })
 
 export {web};

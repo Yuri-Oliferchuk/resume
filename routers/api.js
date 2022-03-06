@@ -6,9 +6,9 @@ import { redirectLogin, redirectHome } from '../middelware/redirect.js';
 
 const api = express.Router();
 
-api.get('/', (req, res) => {
-    res.send('Hello from /api');
-})
+// api.get('/', (req, res) => {
+//     res.send('Hello from /api');
+// })
 
 api.get('/:lang/admin', redirectLogin, (req, res) => {
     res.redirect('../../'+req.params.lang+'/admin')
@@ -40,7 +40,7 @@ api.post('/login', redirectHome,
             })
 );
 
-api.post('/register', redirectHome, async(req, res) => {
+api.post('/signup', redirectHome, async(req, res) => {
     const {username, email, password} = req.body;
 
     if (email&&username&&password) {
@@ -53,7 +53,7 @@ api.post('/register', redirectHome, async(req, res) => {
         req.flash('error', 'Registration successful');
         return res.redirect('/api/login')
     }
-    return res.redirect('/api/register'); // if any errors
+    return res.redirect('/api/signup'); // if any errors
 })
 
 api.get('/logout', redirectLogin, (req, res) => {
