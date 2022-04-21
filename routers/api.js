@@ -19,7 +19,7 @@ api.get('/:lang/admin/info', async(req, res) => {
     const sql = 'SELECT * FROM info WHERE lang=$1;';
     const result = await pool.query(sql, [lang]);
 
-    const myPhoto = 'http://' + req.get('host') + '/pic/photo.jpg';
+    const myPhoto = 'https://' + req.get('host') + '/pic/photo.jpg';
 
     res.json({...result.rows[0], photoUrl: myPhoto});
 })
