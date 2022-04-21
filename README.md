@@ -6,7 +6,7 @@ APIs
 ====
 Interface API
 -------------
-
+Will be added
 
 
 
@@ -29,7 +29,7 @@ __init.sql__ - file for initialize start database<br>
 <br>
 .env
 ====
-DB_USER=photo_caption<br>
+DB_USER=summary<br>
 DB_PASSWORD=password<br>
 DB_HOST=localhost<br>
 DB_PORT=5432<br>
