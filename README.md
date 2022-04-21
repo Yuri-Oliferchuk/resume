@@ -6,7 +6,7 @@ APIs
 ====
 Interface API
 -------------
-Will be added
+GET - "/api/:lang/admin/info" - response has {name, profession, text, contacts, lang, photoUrl}
 
 
 

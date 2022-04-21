@@ -8,7 +8,16 @@ import passport from 'passport';
 import flash from 'express-flash';
 import { fileURLToPath } from 'url'; 
 import { api } from './routers/api.js';
-import { web } from './routers/interface.js'
+import { web } from './routers/interface.js';
+import cors from 'cors';
+
+const corsOptions = {
+  origin:'http://localhost:3000', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
+
+app.use(cors(corsOptions));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
