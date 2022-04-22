@@ -12,7 +12,7 @@ import { web } from './routers/interface.js';
 import cors from 'cors';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 const corsOptions = {
   origin: true, 
@@ -42,7 +42,7 @@ app.use(session({
     secret: "XXXX",
     cookie: {
       maxAge: 1000*60*60*2,
-      sameSite: strict,
+      sameSite: true,
       secure: false,
     }
 }))
