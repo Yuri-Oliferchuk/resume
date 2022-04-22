@@ -15,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
-  origin: ["http://localhost:2000", "http://localhost:3000"], 
+  origin: true, 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
@@ -42,7 +42,7 @@ app.use(session({
     secret: "XXXX",
     cookie: {
       maxAge: 1000*60*60*2,
-      sameSite: 'None',
+      sameSite: strict,
       secure: false,
     }
 }))
