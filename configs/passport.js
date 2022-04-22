@@ -5,15 +5,15 @@ import {findByUsername, findById} from './db.js';           //connect file with 
 
 //set default pasport LocalStrategy
 passport.use(
-    new LocalStrategy(function verify(username, password, done) {
+    new LocalStrategy(function verify(username, password, done) {        
         findByUsername(username, async function (err, user) {        
           if (err) return done(err);
-          if (!user) return done(null, false, { message: "No user found"});
+          if (!user) return done(null, false, { message: "No user found", statusCode: 1});
           password = await bcrypt.hash(password, user.salt);
           if (user.password != password) { 
                       console.log('wrong password')
-                      return done(null, false, { message: "Wrong password"}); }
-          return done(null, user);
+                      return done(null, false, { message: "Wrong password", statusCode: 1}); }
+          return done(null, user, { statusCode: 0 });
         });
   }));
   

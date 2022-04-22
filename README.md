@@ -1,22 +1,32 @@
 Resume
 =============
-
+Back-end part of project. 
 
 APIs
 ====
-Interface API
--------------
-GET - "/api/:lang/admin/info" - response has {name, profession, text, contacts, lang, photoUrl}
-
-
-
-Other API
----------
-
+GET - "/api/1.0/:lang/info" <br>
+Get information from the database. <br>
+good response - { name, profession, text, contacts, lang, photoUrl, statusCode: 0 } <br>
+bad response - { message, statusCode: 0 } <br>
+<br>
+GET - "api/1.0/auth/me" <br>
+User authorization check. <br>
+good response - { user: {username, email, superuser}, statusCode: 0 } <br>
+bad response - {message statusCode: 1} <br>
+<br>
+GET - "/api/1.0/auth/logout" <br>
+Logout <br>
+good response - { statusCode: 0 } <br>
+<br>
+POST - "/api/1.0/auth/login"
+Login. <br>
+request - { username, password } <br>
+good response - { id, username, statusCode: 0 } <br>
+bad response - { message, statusCode: 1 } <br>
+<br>
 
 Middlewares
 ===========
-
 
 
 Function for working with database
