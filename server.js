@@ -41,9 +41,11 @@ app.use(session({
     saveUninitialized: false,
     secret: "XXXX",
     cookie: {
+      path: '/',
+      httpOnly: true,
       maxAge: 1000*60*60*2,
-      sameSite: true,
-      secure: false,
+      // sameSite: true,
+      // secure: false,
     }
 }))
   
