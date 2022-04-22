@@ -50,7 +50,7 @@ api1_0.post('/auth/login', (req, res, next) =>
                 req.logIn(user, err => {
                     if(err)
                         return next(err)
-                    res.json({ id: user.id, username: user.username, TOKEN: req.cookies})
+                    res.json({ id: user.id, username: user.username, statusCode: 0})
                 })
         })(req, res, next)
     }
