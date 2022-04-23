@@ -31,10 +31,10 @@ const jwtTokenMiddelware = async (req, res, next) => {
             res.status(401).json({message:"Invalid token", statusCode: 1})
         }
         const decodeData = jwt.verify(token, secret);
-        if(req.user.username !== decodeData.username || req.user.id !== decodeData.id) {
-            res.status(401).json({message:"Invalid token", statusCode: 1})
-        }
-        req.user.isJwtAuth = true;
+        // if(req.user.username !== decodeData.username || req.user.id !== decodeData.id) {
+        //     res.status(401).json({message:"Invalid token", statusCode: 1})
+        // }
+        req.user = decodeData;
         next()
     } catch(e) {
         console.log(e);

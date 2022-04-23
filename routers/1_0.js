@@ -6,8 +6,8 @@ import { jwtTokenMiddelware, jwtAdminTokenMiddelware } from '../middelware/redir
 
 const secret = process.env.ACCESS_SECRET || "XXX";
 
-const generateAccessToken = (id, username, superuser) => {
-    const payload = {id, username, superuser};
+const generateAccessToken = (username, email, superuser) => {
+    const payload = {username, email, superuser};
     return jwt.sign(payload, secret, {expiresIn: "24h"})
 }
 
@@ -44,7 +44,7 @@ api1_0.post('/auth/login', (req, res, next) =>
                 req.logIn(user, err => {
                     if(err)
                         return next(err)
-                    const token = generateAccessToken(user.id, user.username, user.superuser)
+                    const token = generateAccessToken(user.username, user.email, user.superuser)
                     res.json({ id: user.id, 
                                username: user.username, 
                                token: token,
