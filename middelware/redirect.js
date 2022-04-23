@@ -37,9 +37,9 @@ const jwtTokenMiddelware = async (req, res, next) => {
         req.user = decodeData;
         next()
     } catch(e) {
-        console.log(e);
-        const message = {message:"User not authorized", statusCode: 1};
-        return res.status(401).json(message);
+        // console.log(e);
+        // const message = {message:"User not authorized", statusCode: 1};
+        // return res.status(401).json(message);
     }
 }
 
