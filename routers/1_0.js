@@ -20,7 +20,7 @@ api1_0.get('/:lang/info', async(req, res) => {
 
     if (!result.rows[0]) {res.json({statusCode: 1, message: "Something wrong"});}
     else {
-        const myPhoto = 'https://' + req.get('host') + '/pic/photo.jpg';
+        const myPhoto = 'http://' + req.get('host') + '/pic/photo.jpg';
         res.json({...result.rows[0], photoUrl: myPhoto, statusCode: 0});
     }
 })

@@ -26,7 +26,8 @@ const jwtTokenMiddelware = async (req, res, next) => {
     const secret = process.env.ACCESS_SECRET || "XXX"
 
     try {
-        const token = req.headers.authorization.split(' ')[1];
+        const token = req.headers.authorization;
+        // const token = req.headers.authorization.split(' ')[1];
         if(!token) {
             res.status(401).json({message:"Invalid token", statusCode: 1})
         }
@@ -37,9 +38,8 @@ const jwtTokenMiddelware = async (req, res, next) => {
         req.user = decodeData;
         next()
     } catch(e) {
-        // console.log(e);
-        // const message = {message:"User not authorized", statusCode: 1};
-        // return res.status(401).json(message);
+        console.log(e);
+        return res.status(401).json({message:"User not authorized", statusCode: 1});
     }
 }
 
@@ -51,7 +51,8 @@ const jwtAdminTokenMiddelware = (role) => async (req, res, next) => {
     const secret = process.env.ACCESS_SECRET || "XXX"
 
     try {
-        const token = req.headers.authorization.split(' ')[1];
+        const token = req.headers.authorization;
+        // const token = req.headers.authorization.split(' ')[1];
         if(!token) {
             res.status(401).json({message:"User not authorized", statusCode: 1})
         }
