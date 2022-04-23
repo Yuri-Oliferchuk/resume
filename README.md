@@ -11,6 +11,7 @@ bad response - { message, statusCode: 0 } <br>
 <br>
 GET - "api/1.0/auth/me" <br>
 User authorization check. <br>
+request - {Headers: Authorisation = "Bearer"+token}
 good response - { user: {username, email, superuser}, statusCode: 0 } <br>
 bad response - {message statusCode: 1} <br>
 <br>
@@ -21,13 +22,17 @@ good response - { statusCode: 0 } <br>
 POST - "/api/1.0/auth/login"
 Login. <br>
 request - { username, password } <br>
-good response - { id, username, statusCode: 0 } <br>
+good response - { id, username, token, statusCode: 0 } <br>
 bad response - { message, statusCode: 1 } <br>
 <br>
 
 Middlewares
 ===========
-
+_redirectLogin_ - redirect to login page<br>
+_redirectHome_ - redirecto to home page<br>
+_jwtTokenMiddelware_ - check JWT autorisation success <br>
+_jwtAdminTokenMiddelware("USER")_ - check JWT autorisation with user role (can access only users with role "USER") <br>
+<br>
 
 Function for working with database
 ==================================

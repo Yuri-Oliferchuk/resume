@@ -1,6 +1,15 @@
 import express from 'express';
 import passport from 'passport';
 import { pool } from '../configs/db-config.js';
+import jwt from 'jsonwebtoken';
+import { jwtTokenMiddelware, jwtAdminTokenMiddelware } from '../middelware/redirect.js';
+
+const secret = process.env.ACCESS_SECRET || "XXX";
+
+const generateAccessToken = (id, username, superuser) => {
+    const payload = {id, username, superuser};
+    return jwt.sign(payload, secret, {expiresIn: "24h"})
+}
 
 const api1_0 = express.Router();
 
@@ -16,15 +25,7 @@ api1_0.get('/:lang/info', async(req, res) => {
     }
 })
 
-api1_0.get("/auth/me", (req, res) => {
-    let message = {
-        statusCode: 0,
-        message: "" 
-    }
-    if(!req.isAuthenticated()) {
-        message = {message:"Unauthorized", statusCode: 1}
-        return res.status(401).json(message)
-    }
+api1_0.get("/auth/me", jwtTokenMiddelware, (req, res) => {
     const me = {
         username: req.user.username,
         email: req.user.email,
@@ -32,13 +33,6 @@ api1_0.get("/auth/me", (req, res) => {
     }
     res.json({user: me, statusCode: 0})
   })
-
-// api1_0.post('/login', passport.authenticate('local', {failureFlash: true}),  (req, res, next) => {
-//     if(req.err) return next(err)
-//     if(!req.user) return res.status(401)
-    
-//     res.json({ id: req.user.id, username: req.user.username })  
-// });
 
 api1_0.post('/auth/login', (req, res, next) => 
     {
@@ -50,7 +44,11 @@ api1_0.post('/auth/login', (req, res, next) =>
                 req.logIn(user, err => {
                     if(err)
                         return next(err)
-                    res.json({ id: user.id, username: user.username, statusCode: 0})
+                    const token = generateAccessToken(user.id, user.username, user.superuser)
+                    res.json({ id: user.id, 
+                               username: user.username, 
+                               token: token,
+                               statusCode: 0 })
                 })
         })(req, res, next)
     }
