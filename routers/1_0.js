@@ -3,6 +3,7 @@ import passport from 'passport';
 import { pool } from '../configs/db-config.js';
 import jwt from 'jsonwebtoken';
 import { jwtTokenMiddelware, jwtAdminTokenMiddelware } from '../middelware/redirect.js';
+import bcrypt from "bcrypt";
 
 const secret = process.env.ACCESS_SECRET || "XXX";
 
@@ -44,15 +45,42 @@ api1_0.post('/auth/login', (req, res, next) =>
                 req.logIn(user, err => {
                     if(err)
                         return next(err)
-                    const token = generateAccessToken(user.username, user.email, user.superuser)
-                    res.json({ id: user.id, 
-                               username: user.username, 
+                    const token = generateAccessToken(user.username, user.email, user.superuser);
+                    const userInfo = {
+                        username: user.username,
+                        email: user.email,
+                        superuser: user.superuser
+                    }
+                    res.json({ user: userInfo,
                                token: token,
                                statusCode: 0 })
                 })
         })(req, res, next)
     }
 );
+
+api1_0.post('/auth/signup', async(req, res, next) => {
+    const {username, email, password} = req.body;
+
+    if (email&&username&&password) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const getAllUsers = 'SELECT username FROM users_auth WHERE username LIKE $1;'
+        const result = await pool.query(getAllUsers, [username])
+
+        if(!result.rows[0]) {
+            const sql = 'INSERT INTO users_auth (username, password, email, salt, superuser) VALUES ($1, $2, $3, $4, $5);'
+            await pool.query(sql, [username, hashedPassword, email, salt, false])
+        } else {
+            return res.status(400).json({message: "Username already exist", statusCode: 1})
+        }
+
+        const userInfo = { username, password }
+        return res.status(200).json({user: userInfo, message: "Registration successful", statusCode: 0})
+    }
+    res.status(400).json({message: "Something wrong", statusCode: 1})
+})
 
 api1_0.get('/auth/logout', (req, res) => {
     req.logout();

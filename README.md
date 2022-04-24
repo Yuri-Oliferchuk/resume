@@ -22,7 +22,13 @@ good response - { statusCode: 0 } <br>
 POST - "/api/1.0/auth/login"
 Login. <br>
 request - { username, password } <br>
-good response - { id, username, token, statusCode: 0 } <br>
+good response - { user: {username, email, superuser}, token, statusCode: 0 } <br>
+bad response - { message, statusCode: 1 } <br>
+<br>
+POST - "/api/1.0/auth/signup" <br>
+Create new user. <br>
+request - { username, email, password } <br>
+good response - { user: {username, password}, message, statusCode: 0 } <br>
 bad response - { message, statusCode: 1 } <br>
 <br>
 
