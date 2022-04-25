@@ -32,13 +32,14 @@ api1_0.post('/:lang/info', async(req, res) => {
     const profession = req.body.profession;
     const text = req.body.text;
     const contacts = req.body.contacts;
+    const photoUrl = req.body.photoUrl;
     try {
         const sql = 'UPDATE info SET name=$1, profession=$2, text=$3, contacts=$4 WHERE lang=$5;';
         await pool.query(sql, [name, profession, text, contacts, lang]);
     } catch(error) {
         res.status(400).json({message: "Something wrong", statusCode: 1})
     }
-    res.status(200).json({message: "Information saved", statusCode: 0});
+    res.status(200).json({data: {name, profession, text, contacts, photoUrl},message: "Information saved", statusCode: 0});
 })
 
 api1_0.get("/auth/me", jwtTokenMiddelware, (req, res) => {

@@ -21,8 +21,8 @@ good response - { statusCode: 0 } <br>
 <br>
 POST - "/api/1.0/:lang/info" <br>
 Save information to database. <br>
-request - { name, profession, text, contacts } <br>
-good response - { message, statusCode: 0 } <br>
+request - { name, profession, text, contacts, photoUrl } <br>
+good response - { data: {name, profession, text, contacts, photoUrl}, message, statusCode: 0 } <br>
 bad response - { message, statusCode: 1 } <br>
 <br>
 POST - "/api/1.0/auth/login" <br>
