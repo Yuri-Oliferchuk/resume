@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';                            //add pasport
 import bcrypt from 'bcrypt';     
-import api1_0 from './1_0.js';         
+import api1_0 from './1_0.js';
 import { pool } from '../configs/db-config.js';
 import { redirectLogin, redirectHome } from '../middelware/redirect.js';
 

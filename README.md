@@ -7,7 +7,7 @@ APIs
 GET - "/api/1.0/:lang/info" <br>
 Get information from the database. <br>
 good response - { name, profession, text, contacts, lang, photoUrl, statusCode: 0 } <br>
-bad response - { message, statusCode: 0 } <br>
+bad response - { message, statusCode: 1 } <br>
 <br>
 GET - "api/1.0/auth/me" <br>
 User authorization check. <br>
@@ -19,7 +19,13 @@ GET - "/api/1.0/auth/logout" <br>
 Logout <br>
 good response - { statusCode: 0 } <br>
 <br>
-POST - "/api/1.0/auth/login"
+POST - "/api/1.0/:lang/info" <br>
+Save information to database. <br>
+request - { name, profession, text, contacts } <br>
+good response - { message, statusCode: 0 } <br>
+bad response - { message, statusCode: 1 } <br>
+<br>
+POST - "/api/1.0/auth/login" <br>
 Login. <br>
 request - { username, password } <br>
 good response - { user: {username, email, superuser}, token, statusCode: 0 } <br>

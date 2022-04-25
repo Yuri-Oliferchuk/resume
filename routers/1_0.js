@@ -26,6 +26,21 @@ api1_0.get('/:lang/info', async(req, res) => {
     }
 })
 
+api1_0.post('/:lang/info', async(req, res) => {
+    const lang = req.params.lang;
+    const name = req.body.name;
+    const profession = req.body.profession;
+    const text = req.body.text;
+    const contacts = req.body.contacts;
+    try {
+        const sql = 'UPDATE info SET name=$1, profession=$2, text=$3, contacts=$4 WHERE lang=$5;';
+        await pool.query(sql, [name, profession, text, contacts, lang]);
+    } catch(error) {
+        res.status(400).json({message: "Something wrong", statusCode: 1})
+    }
+    res.status(200).json({message: "Information saved", statusCode: 0});
+})
+
 api1_0.get("/auth/me", jwtTokenMiddelware, (req, res) => {
     const me = {
         username: req.user.username,
@@ -35,8 +50,7 @@ api1_0.get("/auth/me", jwtTokenMiddelware, (req, res) => {
     res.json({user: me, statusCode: 0})
   })
 
-api1_0.post('/auth/login', (req, res, next) => 
-    {
+api1_0.post('/auth/login', (req, res, next) =>  {
         passport.authenticate('local', {failureFlash: true },
             (err, user, info) => {
                 if(err) return next(err)
@@ -56,8 +70,7 @@ api1_0.post('/auth/login', (req, res, next) =>
                                statusCode: 0 })
                 })
         })(req, res, next)
-    }
-);
+    });
 
 api1_0.post('/auth/signup', async(req, res, next) => {
     const {username, email, password} = req.body;
