@@ -2,7 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import { pool } from '../configs/db-config.js';
 import jwt from 'jsonwebtoken';
-import { jwtTokenMiddelware, jwtAdminTokenMiddelware } from '../middelware/redirect.js';
+import { jwtTokenMiddelware, jwtAdminTokenCheckMiddelware } from '../middelware/redirect.js';
 import bcrypt from "bcrypt";
 
 const secret = process.env.ACCESS_SECRET || "XXX";
@@ -26,7 +26,7 @@ api1_0.get('/:lang/info', async(req, res) => {
     }
 })
 
-api1_0.post('/:lang/info', async(req, res) => {
+api1_0.post('/:lang/info', jwtAdminTokenCheckMiddelware, async(req, res) => {
     const lang = req.params.lang;
     const name = req.body.name;
     const profession = req.body.profession;

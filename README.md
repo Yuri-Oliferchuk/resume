@@ -20,8 +20,8 @@ Logout <br>
 good response - { statusCode: 0 } <br>
 <br>
 POST - "/api/1.0/:lang/info" <br>
-Save information to database. <br>
-request - { name, profession, text, contacts, photoUrl } <br>
+Save information to database. Chack token and superuser rules <br>
+request - { name, profession, text, contacts, photoUrl, token } <br>
 good response - { data: {name, profession, text, contacts, photoUrl}, message, statusCode: 0 } <br>
 bad response - { message, statusCode: 1 } <br>
 <br>
@@ -43,7 +43,7 @@ Middlewares
 _redirectLogin_ - redirect to login page<br>
 _redirectHome_ - redirecto to home page<br>
 _jwtTokenMiddelware_ - check JWT autorisation success <br>
-_jwtAdminTokenMiddelware("USER")_ - check JWT autorisation with user role (can access only users with role "USER") <br>
+_jwtAdminTokenCheckMiddelware_ - check JWT autorisation with user role (can access only users with superuser=true) <br>
 <br>
 
 Function for working with database

@@ -22,14 +22,13 @@ const jwtTokenMiddelware = async (req, res, next) => {
     if (req.method === "OPTIONS") {
         next();
     }
-
     const secret = process.env.ACCESS_SECRET || "XXX"
 
     try {
         const token = req.headers.authorization;
         // const token = req.headers.authorization.split(' ')[1];
         if(!token) {
-            res.status(401).json({message:"Invalid token", statusCode: 1})
+            return res.status(401).json({message:"Invalid token", statusCode: 1})
         }
         const decodeData = jwt.verify(token, secret);
         // if(req.user.username !== decodeData.username || req.user.id !== decodeData.id) {
@@ -43,24 +42,21 @@ const jwtTokenMiddelware = async (req, res, next) => {
     }
 }
 
-const jwtAdminTokenMiddelware = (role) => async (req, res, next) => {
+const jwtAdminTokenCheckMiddelware = async (req, res, next) => {
     if (req.method === "OPTIONS") {
         next();
     }
 
     const secret = process.env.ACCESS_SECRET || "XXX"
-
     try {
         const token = req.headers.authorization;
-        // const token = req.headers.authorization.split(' ')[1];
         if(!token) {
-            res.status(401).json({message:"User not authorized", statusCode: 1})
+            return res.status(401).json({message:"User not authorized", statusCode: 1})
         }
         const decodeData = jwt.verify(token, secret);
-        req.user.isJwtAuth = true;
-        const isRole = (decodeData.superuse)? "SUPERUSER" : null;
+        const isRole = (decodeData.superuser)? "SUPERUSER" : null;
         if (!isRole) {
-            res.status(403).json({message:"You don't have permission", statusCode: 1})
+            return res.status(403).json({message:"You don't have permission", statusCode: 1})
         }
         console.log(isRole);
         next()
@@ -75,5 +71,5 @@ export {
     redirectLogin,
     redirectHome,
     jwtTokenMiddelware,
-    jwtAdminTokenMiddelware    
+    jwtAdminTokenCheckMiddelware
 }
