@@ -11,7 +11,6 @@ passport.use(
           if (!user) return done(null, false, { message: "No user found", statusCode: 1});
           password = await bcrypt.hash(password, user.salt);
           if (user.password != password) { 
-                      console.log('wrong password')
                       return done(null, false, { message: "Wrong password", statusCode: 1}); }
           return done(null, user, { statusCode: 0 });
         });

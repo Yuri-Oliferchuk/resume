@@ -19,7 +19,7 @@ api1_0.get('/:lang/info', async(req, res) => {
     const sql = 'SELECT * FROM info WHERE lang=$1;';
     const result = await pool.query(sql, [lang]);
 
-    if (!result.rows[0]) {res.json({statusCode: 1, message: "Something wrong"});}
+    if (!result.rows[0]) {return res.status(400).json({statusCode: 1, message: "Something wrong"});}
     else {
         const myPhoto = 'http://' + req.get('host') + '/pic/photo.jpg';
         res.json({...result.rows[0], photoUrl: myPhoto, statusCode: 0});
