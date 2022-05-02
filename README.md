@@ -11,7 +11,13 @@ bad response - { message, statusCode: 1 } <br>
 <br>
 GET - "api/1.0/auth/me" <br>
 User authorization check. <br>
-request - {Headers: Authorisation = "Bearer"+token}
+request - {Headers: Authorisation = token}
+good response - { user: {username, email, superuser}, statusCode: 0 } <br>
+bad response - {message statusCode: 1} <br>
+<br>
+GET - "api/1.0/auth/me/jwt" <br>
+User authorization check with passport jwt. <br>
+request - {Headers: Authorisation = "Bearer "+token}
 good response - { user: {username, email, superuser}, statusCode: 0 } <br>
 bad response - {message statusCode: 1} <br>
 <br>
