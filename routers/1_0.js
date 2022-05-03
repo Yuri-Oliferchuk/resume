@@ -14,12 +14,12 @@ const secret = process.env.ACCESS_SECRET || "XXX";
 
 const generateAccessToken = (username, email, superuser) => {
   const payload = { username, email, superuser };
-  return jwt.sign(payload, secret, { expiresIn: 60 });
+  return jwt.sign(payload, secret, { expiresIn: 60*15 });
 };
 
 const generateRefreshToken = () => {
   const payload = {};
-  return jwt.sign(payload, secret, { expiresIn: 120 });
+  return jwt.sign(payload, secret, { expiresIn: 60*60*24 });
 };
 
 const api1_0 = express.Router();

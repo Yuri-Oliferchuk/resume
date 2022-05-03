@@ -13,13 +13,19 @@ GET - "api/1.0/auth/me" <br>
 User authorization check. <br>
 request - {Headers: Authorisation = token}
 good response - { user: {username, email, superuser}, statusCode: 0 } <br>
-bad response - {message statusCode: 1} <br>
+bad response - {message, statusCode: 1} <br>
 <br>
 GET - "api/1.0/auth/me/jwt" <br>
 User authorization check with passport jwt. <br>
-request - {Headers: Authorisation = "Bearer "+token}
+request - {Headers: Authorisation = "Bearer " + token}
 good response - { user: {username, email, superuser}, statusCode: 0 } <br>
-bad response - {message statusCode: 1} <br>
+bad response - {message, statusCode: 1} <br>
+<br>
+POST - "/auth/refresh-tokens" <br>
+Generate new access token from refresh token<br>
+request - {refreshToken: "Bearer " + refreshToken} <br>
+good response - { accessToken, statusCode: 0 } <br>
+bad response - {message, statusCode: 1} <br>
 <br>
 GET - "/api/1.0/auth/logout" <br>
 Logout <br>
@@ -51,6 +57,7 @@ _redirectHome_ - redirecto to home page<br>
 _jwtTokenMiddelware_ - check JWT autorisation success <br>
 _jwtAdminTokenCheckMiddelware_ - check JWT autorisation with user role (can access only users with superuser=true) <br>
 _jwtPassportMiddelware_ - check JWT autorisation with passport-jwt<br>
+_jwtRefresh_ - function take refresh token and generate access token<br>
 <br>
 
 Function for working with database
