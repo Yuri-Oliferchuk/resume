@@ -57,5 +57,5 @@ app.use('/', web)
 
 
 app.listen(PORT, () => {
-    console.log(`Server started ... \nhttp://localhost:${PORT}`);
+    console.log(`Server started ... \nhttp://localhost:${PORT} \n`);
 })

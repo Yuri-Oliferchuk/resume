@@ -6,14 +6,20 @@ import {
   jwtTokenMiddelware,
   jwtAdminTokenCheckMiddelware,
   jwtPassportMiddelware,
-} from "../middelware/redirect.js";
+  jwtRefresh,
+} from "../middelware/jwt.js";
 import bcrypt from "bcrypt";
 
 const secret = process.env.ACCESS_SECRET || "XXX";
 
 const generateAccessToken = (username, email, superuser) => {
   const payload = { username, email, superuser };
-  return jwt.sign(payload, secret, { expiresIn: "24h" });
+  return jwt.sign(payload, secret, { expiresIn: 60 });
+};
+
+const generateRefreshToken = () => {
+  const payload = {};
+  return jwt.sign(payload, secret, { expiresIn: 120 });
 };
 
 const api1_0 = express.Router();
@@ -62,12 +68,12 @@ api1_0.get("/auth/me", jwtTokenMiddelware, (req, res) => {
 });
 
 api1_0.get("/auth/me/jwt", jwtPassportMiddelware, (req, res) => {
-    const me = {
-      username: req.user.username,
-      email: req.user.email,
-      superuser: req.user.superuser,
-    };
-    res.json({ user: me, statusCode: 0 });
+  const me = {
+    username: req.user.username,
+    email: req.user.email,
+    superuser: req.user.superuser,
+  };
+  res.json({ user: me, statusCode: 0 });
 });
 
 api1_0.post("/auth/login", (req, res, next) => {
@@ -80,17 +86,18 @@ api1_0.post("/auth/login", (req, res, next) => {
 
     req.logIn(user, (err) => {
       if (err) return next(err);
-      const token = generateAccessToken(
+      const accessToken = generateAccessToken(
         user.username,
         user.email,
         user.superuser
       );
+      const refreshToken = generateRefreshToken();
       const userInfo = {
         username: user.username,
         email: user.email,
         superuser: user.superuser,
       };
-      res.json({ user: userInfo, token: token, statusCode: 0 });
+      res.json({ user: userInfo, accessToken, refreshToken, statusCode: 0 });
     });
   })(req, res, next);
 });
@@ -129,6 +136,15 @@ api1_0.post("/auth/signup", async (req, res, next) => {
 api1_0.get("/auth/logout", (req, res) => {
   req.logout();
   res.json({ statusCode: 0 });
+});
+
+api1_0.post("/auth/refresh-tokens", jwtRefresh, (req, res) => {
+    const accessToken = generateAccessToken(
+      req.user.username,
+      req.user.email,
+      req.user.superuser
+    );
+    res.json({ accessToken, statusCode: 0 });
 });
 
 export default api1_0;

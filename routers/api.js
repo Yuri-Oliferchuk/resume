@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import passport from 'passport';                            //add pasport
 import bcrypt from 'bcrypt';     
 import api1_0 from './1_0.js';
@@ -20,9 +21,9 @@ api.get('/:lang/admin/info', async(req, res) => {
     const lang = req.params.lang;
     const sql = 'SELECT * FROM info WHERE lang=$1;';
     const result = await pool.query(sql, [lang]);
-
-    const myPhoto = 'https://' + req.get('host') + '/pic/photo.jpg';
-
+    
+    const myPhoto = req.protocol + '://' + req.hostname + '/pic/photo.jpg';
+    
     res.json({...result.rows[0], photoUrl: myPhoto});
 })
 
