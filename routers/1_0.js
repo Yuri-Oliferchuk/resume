@@ -33,7 +33,6 @@ api1_0.get("/:lang/info", async (req, res) => {
     return res.status(400).json({ statusCode: 1, message: "Something wrong" });
   } else {
     const myPhoto = "https://" + req.get("host") + "/pic/photo.jpg";
-    console.log(req.protocol);
     res.json({ ...result.rows[0], photoUrl: myPhoto, statusCode: 0 });
   }
 });
