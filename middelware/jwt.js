@@ -68,13 +68,11 @@ const jwtPassportMiddelware = (req, res, next) => {
           .status(401)
           .json({ message: "Invalid token", statusCode: 1 });
       }
-          console.log("\n " + req.user.username);
-          console.log("\n " + jwt.verify(token, secret).username);
-      if (req.user.username !== jwt.verify(token, secret).username) {
-        return res
-          .status(401)
-          .json({ message: "Token from other user", statusCode: 1 });
-      }
+      // if (req.user.username !== jwt.verify(token, secret).username) {
+      //   return res
+      //     .status(401)
+      //     .json({ message: "Token from other user", statusCode: 1 });
+      // }
       next();
     // } catch (e) {
     //   return res
