@@ -55,31 +55,27 @@ const jwtAdminTokenCheckMiddelware = async (req, res, next) => {
 };
 
 const jwtPassportMiddelware = (req, res, next) => {
-  passport.authenticate("jwt", { session: false }, (err, user, info) => {
-    
-    // try {
+  passport.authenticate("jwt", (err, user, info) => {
+    try {
       let token = req.headers.authorization.split(" ")[1];
       const secret = process.env.ACCESS_SECRET || "XXX";
-          console.log("\n " + token);  
-          console.log("\n " + secret);
-          console.log("\n " + user);
       if (!user) {
         return res
           .status(401)
           .json({ message: "Invalid token", statusCode: 1 });
       }
-      // if (req.user.username !== jwt.verify(token, secret).username) {
-      //   return res
-      //     .status(401)
-      //     .json({ message: "Token from other user", statusCode: 1 });
-      // }
-      req.user = user;
+      if (req.user.username !== jwt.verify(token, secret).username) {
+        return res
+          .status(401)
+          .json({ message: "Token from other user", statusCode: 1 });
+      }
+      // req.user = user;
       next();
-    // } catch (e) {
-    //   return res
-    //     .status(401)
-    //     .json({ message: "User not authorized", statusCode: 1 });
-    // }
+    } catch (e) {
+      return res
+        .status(401)
+        .json({ message: "User not authorized", statusCode: 1 });
+    }
   })(req, res, next);
 };
 
