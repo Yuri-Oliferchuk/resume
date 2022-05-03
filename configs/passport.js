@@ -7,12 +7,28 @@ import NewJwtStrategy from "passport-jwt";
 const JwtStrategy = NewJwtStrategy.Strategy;
 import NewExtractJwt from "passport-jwt";
 const ExtractJwt = NewExtractJwt.ExtractJwt;
-
+import NewGitHubStrategy from "passport-github2";
+const GitHubStrategy = NewGitHubStrategy.Strategy;
+ 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.ACCESS_SECRET,
   // jwtFromRequest: ExtractJwt.fromUrlQueryParameter("secret_token"),
 };
+
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: "http://localhost:3001/api/1.0/auth/github/callback",
+    },
+    function (accessToken, refreshToken, profile, done) {
+      // console.log(profile)
+      return done(null, profile);
+    }
+  )
+);
 
 passport.use(
   new JwtStrategy(opts, function (jwt_payload, done) {
@@ -46,14 +62,9 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
 passport.deserializeUser((id, done) => {
-  findById(id, function (err, user) {
-    if (err) {
-      return done(err);
-    }
-    done(null, user);
-  });
+  done(null, id);
 });

@@ -9,6 +9,7 @@ import {
   jwtRefresh,
 } from "../middelware/jwt.js";
 import bcrypt from "bcrypt";
+import { ensureAuthenticated } from "../middelware/oAuth.js";
 
 const secret = process.env.ACCESS_SECRET || "XXX";
 
@@ -147,4 +148,18 @@ api1_0.post("/auth/refresh-tokens", jwtRefresh, (req, res) => {
     res.json({ accessToken, statusCode: 0 });
 });
 
+api1_0.get("/auth/github/callback", passport.authenticate("github", {
+    failureRedirect: "/login",
+    successRedirect: "/",
+  })
+);
+api1_0.get('/auth/github',
+  passport.authenticate('github', { scope: ["user"] })
+);
+
+api1_0.get('/test', ensureAuthenticated, (req, res) => {
+  res.status(200).json({message: "successful", statusCode: 0})
+})
+
 export default api1_0;
+ 
