@@ -56,15 +56,20 @@ const jwtAdminTokenCheckMiddelware = async (req, res, next) => {
 
 const jwtPassportMiddelware = (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (err, user, info) => {
-    console.log(user);
+    
     try {
       let token = req.headers.authorization.split(" ")[1];
       const secret = process.env.ACCESS_SECRET || "XXX";
+          console.log("\n " + token);  
+          console.log("\n " + secret);
+          console.log("\n " + user);
       if (!user) {
         return res
           .status(401)
           .json({ message: "Invalid token", statusCode: 1 });
       }
+          console.log("\n " + req.user.username);
+          console.log("\n " + jwt.verify(token, secret).username);
       if (req.user.username !== jwt.verify(token, secret).username) {
         return res
           .status(401)
