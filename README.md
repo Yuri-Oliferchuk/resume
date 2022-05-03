@@ -50,6 +50,7 @@ _redirectLogin_ - redirect to login page<br>
 _redirectHome_ - redirecto to home page<br>
 _jwtTokenMiddelware_ - check JWT autorisation success <br>
 _jwtAdminTokenCheckMiddelware_ - check JWT autorisation with user role (can access only users with superuser=true) <br>
+_jwtPassportMiddelware_ - check JWT autorisation with passport-jwt<br>
 <br>
 
 Function for working with database

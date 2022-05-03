@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import {
   jwtTokenMiddelware,
   jwtAdminTokenCheckMiddelware,
+  jwtPassportMiddelware,
 } from "../middelware/redirect.js";
 import bcrypt from "bcrypt";
 
@@ -44,13 +45,11 @@ api1_0.post("/:lang/info", jwtAdminTokenCheckMiddelware, async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: "Something wrong", statusCode: 1 });
   }
-  res
-    .status(200)
-    .json({
-      data: { name, profession, text, contacts, photoUrl },
-      message: "Information saved",
-      statusCode: 0,
-    });
+  res.status(200).json({
+    data: { name, profession, text, contacts, photoUrl },
+    message: "Information saved",
+    statusCode: 0,
+  });
 });
 
 api1_0.get("/auth/me", jwtTokenMiddelware, (req, res) => {
@@ -62,14 +61,14 @@ api1_0.get("/auth/me", jwtTokenMiddelware, (req, res) => {
   res.json({ user: me, statusCode: 0 });
 });
 
-api1_0.get("/auth/me/jwt", passport.authenticate('jwt', { session: false }), (req, res) => {
+api1_0.get("/auth/me/jwt", jwtPassportMiddelware, (req, res) => {
     const me = {
       username: req.user.username,
       email: req.user.email,
       superuser: req.user.superuser,
     };
     res.json({ user: me, statusCode: 0 });
-  });
+});
 
 api1_0.post("/auth/login", (req, res, next) => {
   passport.authenticate("local", { failureFlash: true }, (err, user, info) => {
@@ -118,13 +117,11 @@ api1_0.post("/auth/signup", async (req, res, next) => {
     }
 
     const userInfo = { username, password };
-    return res
-      .status(200)
-      .json({
-        user: userInfo,
-        message: "Registration successful",
-        statusCode: 0,
-      });
+    return res.status(200).json({
+      user: userInfo,
+      message: "Registration successful",
+      statusCode: 0,
+    });
   }
   res.status(400).json({ message: "Something wrong", statusCode: 1 });
 });
