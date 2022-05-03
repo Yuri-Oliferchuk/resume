@@ -73,6 +73,7 @@ const jwtPassportMiddelware = (req, res, next) => {
       //     .status(401)
       //     .json({ message: "Token from other user", statusCode: 1 });
       // }
+      req.user = user;
       next();
     // } catch (e) {
     //   return res
