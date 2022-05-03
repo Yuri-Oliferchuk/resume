@@ -56,6 +56,7 @@ const jwtAdminTokenCheckMiddelware = async (req, res, next) => {
 
 const jwtPassportMiddelware = (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (err, user, info) => {
+    console.log(user);
     try {
       let token = req.headers.authorization.split(" ")[1];
       const secret = process.env.ACCESS_SECRET || "XXX";
