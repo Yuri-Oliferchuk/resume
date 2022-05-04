@@ -9,12 +9,35 @@ import NewExtractJwt from "passport-jwt";
 const ExtractJwt = NewExtractJwt.ExtractJwt;
 import NewGitHubStrategy from "passport-github2";
 const GitHubStrategy = NewGitHubStrategy.Strategy;
- 
+// import NewOAuth2Strategy from "passport-oauth2";
+// const OAuth2Strategy = NewOAuth2Strategy.Strategy;
+
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.ACCESS_SECRET,
   // jwtFromRequest: ExtractJwt.fromUrlQueryParameter("secret_token"),
 };
+
+// passport.use(
+//   new OAuth2Strategy(
+//     {
+//       authorizationURL: "https://github.com/login/oauth/authorize",
+//       tokenURL: 'https://github.com/login/oauth/access_token',
+//       clientID: process.env.GITHUB_CLIENT_ID,
+//       clientSecret: process.env.GITHUB_CLIENT_SECRET,
+//       callbackURL: "http://localhost:3001/api/1.0/auth/github/callback",
+//       scope: "user",
+//     },
+//     function (accessToken, refreshToken, params, profile, done) {
+//       // User.findOrCreate({ exampleId: profile.id }, function (err, user) {
+//         // console.log(profile);
+//         // console.log(accessToken);
+//         // console.log(refreshToken);
+//         // console.log(params)
+//       return done(null, profile);
+//     }
+//   )
+// );
 
 passport.use(
   new GitHubStrategy(
@@ -23,8 +46,12 @@ passport.use(
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: "http://localhost:3001/api/1.0/auth/github/callback",
     },
-    function (accessToken, refreshToken, profile, done) {
-      // console.log(profile)
+    function (accessToken, refreshToken, params, profile, done) {
+      // User.findOrCreate({ exampleId: profile.id }, function (err, user) {
+        // console.log(profile);
+        // console.log(accessToken);
+        // console.log(refreshToken);
+        // console.log(params)
       return done(null, profile);
     }
   )
@@ -62,9 +89,11 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  done(null, id);
+  // findById(id, (err, user) => {
+    done(null, id);
+  // });
 });

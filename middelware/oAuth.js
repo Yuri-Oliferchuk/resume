@@ -1,9 +1,9 @@
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect("/login");
-  }
+  console.log("middelware - " + req.isAuthenticated());
+if (req.isAuthenticated()) {
+  return next();
+}
+res.redirect("/login");
 }
 
 export { ensureAuthenticated };

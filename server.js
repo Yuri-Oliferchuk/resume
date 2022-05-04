@@ -40,11 +40,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: "XXXX",
-    cookie: {
-      maxAge: 1000*60*60*2,
-      sameSite: true,
-      secure: false,
-    }
+    // cookie: {
+    //   maxAge: 1000*60*60*2,
+    //   sameSite: true,
+    //   secure: false,
+    // }
 }))
   
 // Passport Config
