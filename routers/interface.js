@@ -12,7 +12,6 @@ web.get('/:lang', (req, res) => {
     if(req.params.lang!=='ua'&&req.params.lang!=='eng') {
         res.status(404).send();
     } else {
-        console.log("interface " + req.isAuthenticated())
         res.render('info', {lang: req.params.lang, isLogin: req.isAuthenticated()});
     }
     

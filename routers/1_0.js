@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 import { jwtTokenMiddelware, jwtAdminTokenCheckMiddelware, jwtPassportMiddelware, jwtRefresh } from "../middelware/jwt.js";
 import bcrypt from "bcrypt";
 import { ensureAuthenticated } from "../middelware/oAuth.js";
-import { redirectLogin } from "../middelware/redirect.js";
 
 const secret = process.env.ACCESS_SECRET || "XXX";
 
